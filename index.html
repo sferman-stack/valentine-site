@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Happy Valentine ❤️</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Great+Vibes&family=Merriweather&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      background: pink;
+      height: 100vh;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* TITLE FONT */
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      color: red;
+      margin-top: 20px;
+      font-size: 48px;
+    }
+
+    /* SLIDE CONTAINER */
+    #slide-container {
+      position: relative;
+      width: 90%;
+      max-width: 700px;
+      margin: 50px auto 20px auto;
+      min-height: 400px;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slide img, .slide video {
+      width: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+      border-radius: 15px;
+    }
+
+    /* CAPTION FONT */
+    .caption {
+      font-family: 'Merriweather', serif;
+      font-size: 22px;
+      color: darkred;
+      margin: 15px 0;
+    }
+
+    /* BUTTON FONT */
+    #nextBtn {
+      font-family: 'Comic Neue', sans-serif;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+      z-index: 100;
+      position: relative;
+    }
+
+    /* FLOATING HEARTS */
+    .heart {
+      position: absolute;
+      color: pink;
+      font-size: 20px;
+      animation: float 7s linear infinite;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-50px) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Happy Valentine’s Day 💖</h1>
+
+<div id="slide-container">
+  <!-- Slides 1–7 Images -->
+  <div class="slide">
+    <img src="slide1.jpg" alt="Slide 1">
+    <div class="caption">Happy Valentine’s Day, my love! 💖</div>
+  </div>
+  <div class="slide">
+    <img src="slide2.jpg" alt="Slide 2">
+    <div class="caption">You’ve captured my heart completely 😘</div>
+  </div>
+  <div class="slide">
+    <img src="slide3.jpg" alt="Slide 3">
+    <div class="caption">Thank you for always making me smile 😊</div>
+  </div>
+  <div class="slide">
+    <img src="slide4.jpg" alt="Slide 4">
+    <div class="caption">You are my favorite person in the world ❤️</div>
+  </div>
+  <div class="slide">
+    <img src="slide5.jpg" alt="Slide 5">
+    <div class="caption">Every moment with you feels magical ✨</div>
+  </div>
+  <div class="slide">
+    <img src="slide6.jpg" alt="Slide 6">
+    <div class="caption">I love you more than words can say 💌</div>
+  </div>
+  <div class="slide">
+    <img src="slide7.jpg" alt="Slide 7">
+    <div class="caption">Forever your Valentine 💗</div>
+  </div>
+
+  <!-- Slide 8 Video -->
+  <div class="slide">
+    <video width="100%" max-height="60vh" controls>
+      <source src="LOVE.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="caption">Here’s to more adventures, love, and laughter together 🥰</div>
+  </div>
+</div>
+
+<!-- BUTTON OUTSIDE SLIDE CONTAINER -->
+<button id="nextBtn">Click Me Baby 💖</button>
+
+<!-- FLOATING HEARTS -->
+<div id="hearts-container"></div>
+
+<script>
+  const slides = document.getElementsByClassName("slide");
+  const nextBtn = document.getElementById("nextBtn");
+
+  // Button phrases per slide
+  const buttonPhrases = [
+    "Click Me Baby 💖",
+    "Next Hug 🤗",
+    "You’re My Love 😘",
+    "Next Kiss 💋",
+    "Forever Us 💗",
+    "Love You Always 💌",
+    "Next Surprise ✨",
+    "Play Video 🎥"
+  ];
+
+  let currentSlide = 0;
+
+  function showSlide(index) {
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.opacity = 0;
+      slides[i].style.zIndex = 0;
+      const video = slides[i].querySelector("video");
+      if(video) video.pause();
+    }
+    slides[index].style.opacity = 1;
+    slides[index].style.zIndex = 1;
+
+    const currentVideo = slides[index].querySelector("video");
+    if(currentVideo) currentVideo.play();
+
+    // Update button text
+    nextBtn.innerText = buttonPhrases[index];
+  }
+
+  nextBtn.addEventListener("click", function() {
+    currentSlide++;
+    if(currentSlide >= slides.length) currentSlide = 0;
+    showSlide(currentSlide);
+  });
+
+  showSlide(currentSlide);
+
+  // FLOATING HEARTS
+  const heartsContainer = document.getElementById("hearts-container");
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = (10 + Math.random() * 20) + "px";
+    heart.innerText = "❤️";
+    heartsContainer.appendChild(heart);
+    setTimeout(() => heartsContainer.removeChild(heart), 7000);
+  }
+  setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
